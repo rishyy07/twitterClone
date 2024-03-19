@@ -4,156 +4,35 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-// generator client {
-//   provider = "prisma-client-js"
-// }
-
-// datasource db {
-//   provider = "postgresql"
-//   url      = "postgresql://rishita1170.be21:BD4N7nabZXfm@ep-rough-art-a5m7hual.us-east-2.aws.neon.tech/twitterClone?sslmode=require"
-// }
-
-// model User {
-//   id        Int       @id @default(autoincrement())
-//   email     String    @unique
-//   firstName String
-//   lastName  String?
-//   password  String
-//   tweet     Tweet[]
-//   like      Like[]
-//   Comment   Comment[]
-//   Comment   Comment[]
-// }
-
-// model Tweet {
-//   id        Int       @id @default(autoincrement())
-//   title     String
-//   content   String
-//   userId    Int
-//   likeCount Int       @default(0)
-//   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   like      Like[]
-//   Comment   Comment[]
-// }
-
-// model Like {
-//   id      Int   @id @default(autoincrement())
-//   userid  Int
-//   tweetid Int
-//   user    User  @relation(fields: [userid], references: [id], onDelete: Cascade)
-//   tweett  Tweet @relation(fields: [tweetid], references: [id], onDelete: Cascade)
-// }
-
-// model Comment {
-//   id        Int      @id @default(autoincrement())
-//   content   String
-//   userId    Int
-//   tweetId   Int
-//   authorId  Int
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-
-//   // Define relationships
-//   user   User  @relation(fields: [userId], references: [id])
-//   tweet  Tweet @relation(fields: [tweetId], references: [id])
-//   author User  @relation("Author", fields: [authorId], references: [id])
-
-//   // Add indexes if needed
-//   @@index([userId])
-//   @@index([tweetId])
-//   @@index([authorId])
-// }
-
-// generator client {
-//   provider = "prisma-client-js"
-// }
-
-// datasource db {
-//   provider = "postgresql"
-//   url      = "postgresql://rishita1170.be21:BD4N7nabZXfm@ep-rough-art-a5m7hual.us-east-2.aws.neon.tech/twitterClone?sslmode=require"
-// }
-
-// model User {
-//   id        Int       @id @default(autoincrement())
-//   email     String    @unique
-//   firstName String
-//   lastName  String?
-//   password  String
-//   tweets    Tweet[] // Changed from "tweet" to "tweets"
-//   likes     Like[]
-//   comments  Comment[] // Added comments relationship
-//   Comment   Comment[]
-// }
-
-// model Tweet {
-//   id        Int       @id @default(autoincrement())
-//   title     String
-//   content   String
-//   userId    Int
-//   likeCount Int       @default(0)
-//   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   likes     Like[]
-//   comments  Comment[] @relation(onDelete: Cascade) // Added onDelete: Cascade
-// }
-
-// model Like {
-//   id      Int   @id @default(autoincrement())
-//   userId  Int
-//   tweetId Int
-//   user    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   tweet   Tweet @relation(fields: [tweetId], references: [id], onDelete: Cascade)
-// }
-
-// model Comment {
-//   id        Int      @id @default(autoincrement())
-//   content   String
-//   userId    Int
-//   tweetId   Int
-//   authorId  Int
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-
-//   // Define relationships
-//   user   User  @relation(fields: [userId], references: [id])
-//   tweet  Tweet @relation(fields: [tweetId], references: [id])
-//   author User  @relation("Author", fields: [authorId], references: [id])
-
-//   // Add indexes if needed
-//   @@index([userId])
-//   @@index([tweetId])
-//   @@index([authorId])
-// }
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://rishita1170.be21:BD4N7nabZXfm@ep-rough-art-a5m7hual.us-east-2.aws.neon.tech/twitterClone?sslmode=require"
+  url      = "postgresql://khyatisingla105:iZ4bxOSITR0K@ep-black-poetry-a51mg8hv.us-east-2.aws.neon.tech/twitterClone?sslmode=require"
 }
 
 model User {
   id        Int       @id @default(autoincrement())
-  email     String    @unique
   firstName String
-  lastName  String?
+  LastName  String
+  email     String    @unique
   password  String
-  tweets    Tweet[]
-  likes     Like[]
-  comments  Comment[] @relation("CommentAuthor")
-  Comment   Comment[]
+  twitt     Twitt[]
+  like      Like[]
+  comment   comment[]
 }
 
-model Tweet {
+model Twitt {
   id        Int       @id @default(autoincrement())
   title     String
   content   String
-  userId    Int
+  userid    Int
   likeCount Int       @default(0)
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  likes     Like[]
-  comments  Comment[]
+  user      User      @relation(fields: [userid], references: [id], onDelete: Cascade)
+  like      Like[]
+  comment   comment[]
 }
 
 model Like {
@@ -161,25 +40,14 @@ model Like {
   userId  Int
   tweetId Int
   user    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tweet   Tweet @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweet   Twitt @relation(fields: [tweetId], references: [id], onDelete: Cascade)
 }
 
-model Comment {
-  id        Int      @id @default(autoincrement())
-  content   String
-  userId    Int
-  tweetId   Int
-  authorId  Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Define relationships
-  user   User  @relation(fields: [userId], references: [id])
-  tweet  Tweet @relation(fields: [tweetId], references: [id])
-  author User  @relation("CommentAuthor", fields: [authorId], references: [id])
-
-  // Add indexes if needed
-  @@index([userId])
-  @@index([tweetId])
-  @@index([authorId])
+model comment {
+  id      Int    @id @default(autoincrement())
+  userId  Int
+  tweetId Int
+  comment String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tweet   Twitt  @relation(fields: [tweetId], references: [id], onDelete: Cascade)
 }

@@ -3,6 +3,7 @@ import userRoute from "./routes/user";
 import loginRoute from "./routes/login";
 import tweetRoute from "./routes/tweet";
 import likeRoute from "./routes/like";
+// import commentRoute from "./routes/comment";
 // import session from "express-session";
 import cookieParser from "cookie-parser";
 const PORT = 7000;
@@ -21,6 +22,7 @@ app.use("/user", userRoute);
 app.use("/login", loginRoute);
 app.use("/tweet", tweetRoute);
 app.use("/like", likeRoute);
+// app.use("/comment", commentRoute);
 app.listen(PORT, () => {
     console.log(`http://localho/9st:${PORT}`)   //to implement dynamic script, backtick is used
 })
